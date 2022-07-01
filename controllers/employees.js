@@ -3,23 +3,30 @@ const pool = require("../mysql/connection")
 
 
 const getEmployees = (req, res) => {  
-    res.send('getting employees')
+  pool.query('SELECT * FROM users', (err, rows) => {
+    res.json(rows)
+  });
+
 }
 
 const getEmployeesById = (req, res) => {
+  // SELECT USERS WHERE ID = <REQ PARAMS ID>
   let id = req.params.id
-  let found = employees.find((element) => {
-    return element.id == id;
+  let sql = "SELECT * FROM ?? WHERE ?? = ?"
+  // WHAT GOES IN THE BRACKETS
+  sql = mysql.format(sql, ['users', "id", id])
+
+  pool.query(sql, (err, rows) => {
+    return res.json(rows);
   })
-  res.send('Get employee my ID!')
 }
 
 const getEmployeesByFirstName = (req, res) => {
   let firstName = req.params.first_name
-  let found = employees.find((element) => {
-    return element.first_name == firstName;
+  let sql = `SELECT * FROM users WHERE first_name = "${firstName}"`
+  pool.query(sql, (err, rows) => {
+    return res.json(rows)
   })
-  res.send('Get employee by first name!')
 }
 
 module.exports = {getEmployees, getEmployeesById, getEmployeesByFirstName}
