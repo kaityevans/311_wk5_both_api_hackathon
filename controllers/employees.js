@@ -1,4 +1,6 @@
-// const employee = require("../routes/employee")
+const mysql = require("mysql")
+const pool = require("../mysql/connection")
+
 
 const getEmployees = (req, res) => {  
     res.send('getting employees')
