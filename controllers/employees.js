@@ -3,15 +3,16 @@ const pool = require("../mysql/connection")
 
 
 const getEmployees = (req, res) => {  
-    res.send('getting employees')
+  pool.query("SELECT * FROM users", (err, rows) => {
+     res.json(rows);
+  })
 }
 
 const getEmployeesById = (req, res) => {
-  let id = req.params.id
-  let found = employees.find((element) => {
-    return element.id == id;
-  })
-  res.send('Get employee my ID!')
+  let id = req.params.id;
+  let sql = "SELECT * FROM ?? WHERE ?? = ?";
+  sql = mysql.format(sql, ["users", "id", id]);
+     res.json(rows)
 }
 
 const getEmployeesByFirstName = (req, res) => {
