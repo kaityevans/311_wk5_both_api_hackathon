@@ -17,10 +17,10 @@ const getEmployeesById = (req, res) => {
 
 const getEmployeesByFirstName = (req, res) => {
   let firstName = req.params.first_name
-  let found = employees.find((element) => {
-    return element.first_name == firstName;
+  let sql = `SELECT * FROM users WHERE first_name = "${firstName}"`
+  pool.query(sql, (err, rows) => {
+    return res.json(rows)
   })
-  res.send('Get employee by first name!')
 }
 
 module.exports = {getEmployees, getEmployeesById, getEmployeesByFirstName}
